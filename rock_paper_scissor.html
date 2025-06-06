@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        #gameDiv {
+            border: 3px solid #333;
+            border-radius: 25px;
+            padding: 20px;
+            background-color: lightgrey;
+            text-align: center;
+            width: 300px;
+        }
+
+        .choiceBtn {
+            line-height: 30px;
+            width: 150px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #ddd;
+            transition: background-color 0.3s ease;
+        }
+
+        .choiceBtn:hover {
+            background-color: #bbb;
+        }
+
+        #playerText {
+            color: blue;
+        }
+
+        #computerText {
+            color: red;
+        }
+
+        #resultText {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Rock Paper Scissors</h1>
+
+    <div id="gameDiv">
+        <h2 id="playerText">Player: </h2>
+        <h2 id="computerText">Computer: </h2>
+        <h2 id="resultText">Result: </h2>
+
+        <button class="choiceBtn">ROCK</button>
+        <button class="choiceBtn">PAPER</button>
+        <button class="choiceBtn">SCISSORS</button>
+    </div>
+
+    <script>
+        const playerText = document.querySelector("#playerText");
+        const computerText = document.querySelector("#computerText");
+        const resultText = document.querySelector("#resultText");
+        const choiceBtns = document.querySelectorAll(".choiceBtn");
+
+        let player;
+        let computer;
+
+        choiceBtns.forEach(button => {
+            button.addEventListener("click", () => {
+                player = button.textContent;
+                computerTurn();
+                playerText.textContent = `Player: ${player}`;
+                computerText.textContent = `Computer: ${computer}`;
+                resultText.textContent = `Result: ${checkWinner()}`;
+            });
+        });
+
+        function computerTurn() {
+            const choices = ["ROCK", "PAPER", "SCISSORS"];
+            const randNum = Math.floor(Math.random() * 3);
+            computer = choices[randNum];
+        }
+
+        function checkWinner() {
+            if (player === computer) return "Draw!";
+            if (
+                (player === "ROCK" && computer === "SCISSORS") ||
+                (player === "PAPER" && computer === "ROCK") ||
+                (player === "SCISSORS" && computer === "PAPER")
+            ) {
+                return "You Win!";
+            } else {
+                return "You Lose!";
+            }
+        }
+    </script>
+</body>
+</html>
